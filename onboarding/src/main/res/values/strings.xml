@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">OnBoarding</string>
+    <string name="text_welcome_screen">Welcome</string>
+    <string name="text_get_started">Get Started</string>
+    <string name="text_back">Back</string>
+    <string name="text_next">Next</string>
+    <string name="text_terms_of_service">Terms of Service</string>
+    <string name="text_terms_of_service_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</string>
+    <string name="text_agree_to_terms_and_condition">I agree to the Terms and Conditions</string>
+    <string name="checkbox_alert">Please tick the checkbox to proceed</string>
+    <string name="label_enter_email_address">Email Address</string>
+    <string name="label_enter_password">Password</string>
+    <string name="text_show_password">Show password</string>
+    <string name="text_hide_password">Hide password</string>
+    <string name="alert_empty_email_password">Please enter both email and password</string>
+</resources>
