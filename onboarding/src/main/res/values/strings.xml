@@ -13,4 +13,9 @@
     <string name="text_show_password">Show password</string>
     <string name="text_hide_password">Hide password</string>
     <string name="alert_empty_email_password">Please enter both email and password</string>
+    <string name="label_enter_firstName">Enter First Name</string>
+    <string name="label_enter_lastName">Enter Last Name</string>
+    <string name="label_enter_telephone_number">Enter Telephone Number</string>
+    <string name="alert_empty_name_telephone">Please enter both name and telephone</string>
+    <string name="alert_invalid_enter_address_format">InValid Email Address Format</string>
 </resources>

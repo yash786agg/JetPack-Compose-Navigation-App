@@ -4,28 +4,28 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 
 class CredentialsVM : ViewModel() {
-    val emailLoginTextFieldState = mutableStateOf("")
-    val passwordLoginTextFieldState = mutableStateOf("")
+    val emailTextFieldState = mutableStateOf("")
+    val passwordTextFieldState = mutableStateOf("")
 
     /**
      * Returns an email text field value as it helps to survive
      * screen configuration change.
-     * @param  emailLoginTextFieldState  an email for credentials of String variable type
+     * @param  emailTextFieldState  an email for credentials of String variable type
      * @return mutableState value of email
      */
 
-    fun onEmailQueryChanged(emailLoginTextFieldState: String) {
-        this.emailLoginTextFieldState.value = emailLoginTextFieldState
+    fun onEmailQueryChanged(emailTextFieldState: String) {
+        this.emailTextFieldState.value = emailTextFieldState
     }
 
     /**
      * Returns an password text field value as it helps to survive
      * screen configuration change.
-     * @param passwordLoginTextFieldState an password for credentials of String variable type
+     * @param passwordTextFieldState an password for credentials of String variable type
      * @return mutableState value of password
      */
 
-    fun onPasswordQueryChanged(passwordLoginTextFieldState: String) {
-        this.passwordLoginTextFieldState.value = passwordLoginTextFieldState
+    fun onPasswordQueryChanged(passwordTextFieldState: String) {
+        this.passwordTextFieldState.value = passwordTextFieldState
     }
 }

@@ -9,10 +9,12 @@ import com.android.navigation.NavigationItem
 import com.android.navigation_app.MainActivity
 import com.android.navigation_app.ui.splash.SplashScreen
 import com.android.onboarding.compose.CredentialsScreen
+import com.android.onboarding.compose.NewPinScreen
 import com.android.onboarding.compose.PersonalInfoScreen
 import com.android.onboarding.compose.TermsOfServiceScreen
 import com.android.onboarding.compose.WelcomeScreen
 import com.android.onboarding.vm.CredentialsVM
+import com.android.onboarding.vm.PersonalInfoVM
 import com.android.onboarding.vm.TermsOfServiceVM
 
 @Composable
@@ -43,7 +45,12 @@ fun AppNavHost(
         }
 
         composable(NavigationItem.PERSONAL_INFO.route) {
-            PersonalInfoScreen(navController = navController)
+            val personalInfoVM = viewModel<PersonalInfoVM>()
+            PersonalInfoScreen(navController = navController,personalInfoVM = personalInfoVM)
+        }
+
+        composable(NavigationItem.NEW_PIN.route) {
+            NewPinScreen(navController = navController)
         }
     }
 }
