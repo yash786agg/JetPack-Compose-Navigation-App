@@ -13,12 +13,17 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.android.navigation.NavigationItem
 import com.android.onboarding.R
+import com.android.onboarding.compose.common.Validator.validateTelephoneNumber
 import com.android.onboarding.compose.common.onBoardingBottomTextButton
 import com.android.onboarding.vm.PersonalInfoVM
 
@@ -49,6 +55,7 @@ fun PersonalInfoScreen(navController: NavHostController, personalInfoVM: Persona
         val firstNameTextField = personalInfoVM.firstNameTextFieldState.value
         val lastNameTextField = personalInfoVM.lastNameTextFieldState.value
         val telephoneNumberTextField = personalInfoVM.telephoneNumberTextFieldState.value
+        var isTelephoneNumberValid by rememberSaveable { mutableStateOf(true) }
 
         Spacer(modifier = Modifier.height(40.dp))
 
@@ -130,6 +137,7 @@ fun PersonalInfoScreen(navController: NavHostController, personalInfoVM: Persona
                 value = telephoneNumberTextField,
                 onValueChange = { newValue ->
                     personalInfoVM.onTelephoneNumberQueryChanged(newValue)
+                    isTelephoneNumberValid = validateTelephoneNumber(newValue)
                 },
                 label = {
                     Text(
@@ -140,7 +148,7 @@ fun PersonalInfoScreen(navController: NavHostController, personalInfoVM: Persona
                     )
                 },
                 keyboardOptions = KeyboardOptions.Default.copy(
-                    keyboardType = KeyboardType.Number,
+                    keyboardType = KeyboardType.Phone,
                     imeAction = ImeAction.Done,
                     autoCorrect = false
                 ),
@@ -149,9 +157,26 @@ fun PersonalInfoScreen(navController: NavHostController, personalInfoVM: Persona
                     .onFocusChanged { focus ->
                         telephoneNumberFocusState = focus.isFocused
                     },
-                keyboardActions = KeyboardActions(onDone = { keyboardFocusManager.clearFocus() }),
+                keyboardActions = KeyboardActions(onDone = {
+                    isTelephoneNumberValid = validateTelephoneNumber(telephoneNumberTextField)
+                    keyboardFocusManager.clearFocus()
+                }),
                 visualTransformation = VisualTransformation.None,
                 singleLine = true,
+                isError = isTelephoneNumberValid,
+                supportingText = {
+                    if (!isTelephoneNumberValid) {
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = stringResource(id = R.string.alert_invalid_telephone_format),
+                            color = MaterialTheme.colorScheme.error
+                        )
+                    }
+                },
+                trailingIcon = {
+                    if (!isTelephoneNumberValid)
+                        Icon(Icons.Filled.Info, "error", tint = MaterialTheme.colorScheme.error)
+                },
             )
         }
         // Spacer to push the next element (onBoardingBottomTextButton) to the bottom
@@ -167,7 +192,11 @@ fun PersonalInfoScreen(navController: NavHostController, personalInfoVM: Persona
                     && personalInfoVM.lastNameTextFieldState.value.isNotEmpty()
                     && personalInfoVM.telephoneNumberTextFieldState.value.isNotEmpty()
                 ) {
-                    navController.navigate(NavigationItem.NEW_PIN.route)
+                    if(isTelephoneNumberValid)
+                        navController.navigate(NavigationItem.NEW_PIN.route)
+                    else
+                        Toast.makeText(context, R.string.alert_invalid_telephone_format, Toast.LENGTH_SHORT)
+                            .show()
                 } else
                     Toast.makeText(context, R.string.alert_empty_name_telephone, Toast.LENGTH_SHORT)
                         .show()

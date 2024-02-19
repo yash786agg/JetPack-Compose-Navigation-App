@@ -61,7 +61,7 @@ fun CredentialsScreen(navController: NavHostController, credentialsVM: Credentia
         val emailTextField = credentialsVM.emailTextFieldState.value
         val passwordTextFieldState = credentialsVM.passwordTextFieldState.value
         var passwordVisible by rememberSaveable { mutableStateOf(false) }
-
+        var isEmailValid by rememberSaveable { mutableStateOf(true) }
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -74,7 +74,6 @@ fun CredentialsScreen(navController: NavHostController, credentialsVM: Credentia
             ) {
                 // TextField for email
                 var emailFocusState by remember { mutableStateOf(false) }
-                var isEmailValid by rememberSaveable { mutableStateOf(true) }
                 TextField(
                     value = emailTextField,
                     onValueChange = { newValue ->
@@ -137,6 +136,7 @@ fun CredentialsScreen(navController: NavHostController, credentialsVM: Credentia
                             text = if (passwordFocusState || passwordTextFieldState.isNotEmpty()) "" else stringResource(
                                 id = R.string.label_enter_password
                             ),
+                            softWrap = false
                         )
                     },
                     keyboardOptions = KeyboardOptions.Default.copy(
@@ -188,7 +188,12 @@ fun CredentialsScreen(navController: NavHostController, credentialsVM: Credentia
                 if (credentialsVM.emailTextFieldState.value.isNotEmpty()
                     && credentialsVM.passwordTextFieldState.value.isNotEmpty()
                 ) {
-                    navController.navigate(NavigationItem.PERSONAL_INFO.route)
+                    if(isEmailValid) {
+                        navController.navigate(NavigationItem.PERSONAL_INFO.route)
+                    } else {
+                        Toast.makeText(context, R.string.alert_invalid_enter_address_format, Toast.LENGTH_SHORT)
+                            .show()
+                    }
                 } else
                     Toast.makeText(context, R.string.alert_empty_email_password, Toast.LENGTH_SHORT)
                         .show()
