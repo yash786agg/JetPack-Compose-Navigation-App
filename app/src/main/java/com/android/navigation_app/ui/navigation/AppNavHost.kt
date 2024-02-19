@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import com.android.navigation.NavigationItem
 import com.android.navigation_app.MainActivity
 import com.android.navigation_app.ui.splash.SplashScreen
+import com.android.onboarding.compose.ConfirmPinScreen
 import com.android.onboarding.compose.CredentialsScreen
 import com.android.onboarding.compose.NewPinScreen
 import com.android.onboarding.compose.PersonalInfoScreen
@@ -51,6 +52,10 @@ fun AppNavHost(
 
         composable(NavigationItem.NEW_PIN.route) {
             NewPinScreen(navController = navController)
+        }
+
+        composable(NavigationItem.CONFIRM_PIN.route) {
+            ConfirmPinScreen(navController = navController)
         }
     }
 }
