@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -39,9 +40,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.android.navigation.NavigationItem
 import com.android.onboarding.R
+import com.android.onboarding.compose.common.DataStorePreferences.NAME
+import com.android.onboarding.compose.common.DataStorePreferences.TELEPHONE
+import com.android.onboarding.compose.common.DataStorePreferences.dataStore
+import com.android.onboarding.compose.common.DataStorePreferences.setValue
 import com.android.onboarding.compose.common.Validator.validateTelephoneNumber
 import com.android.onboarding.compose.common.onBoardingBottomTextButton
 import com.android.onboarding.vm.PersonalInfoVM
+import kotlinx.coroutines.launch
 
 @Composable
 fun PersonalInfoScreen(navController: NavHostController, personalInfoVM: PersonalInfoVM) {
@@ -51,6 +57,7 @@ fun PersonalInfoScreen(navController: NavHostController, personalInfoVM: Persona
             .padding(30.dp)
     ) {
         val context = LocalContext.current
+        val coroutineScope = rememberCoroutineScope()
         val keyboardFocusManager = LocalFocusManager.current
         val firstNameTextField = personalInfoVM.firstNameTextFieldState.value
         val lastNameTextField = personalInfoVM.lastNameTextFieldState.value
@@ -192,10 +199,26 @@ fun PersonalInfoScreen(navController: NavHostController, personalInfoVM: Persona
                     && personalInfoVM.lastNameTextFieldState.value.isNotEmpty()
                     && personalInfoVM.telephoneNumberTextFieldState.value.isNotEmpty()
                 ) {
-                    if(isTelephoneNumberValid)
+                    coroutineScope.launch {
+                        dataStore?.setValue(
+                            NAME,
+                            personalInfoVM.firstNameTextFieldState.value + " " + personalInfoVM.lastNameTextFieldState.value
+                        )
+                    }
+                    if (isTelephoneNumberValid) {
+                        coroutineScope.launch {
+                            dataStore?.setValue(
+                                TELEPHONE,
+                                personalInfoVM.telephoneNumberTextFieldState.value
+                            )
+                        }
                         navController.navigate(NavigationItem.NEW_PIN.route)
-                    else
-                        Toast.makeText(context, R.string.alert_invalid_telephone_format, Toast.LENGTH_SHORT)
+                    } else
+                        Toast.makeText(
+                            context,
+                            R.string.alert_invalid_telephone_format,
+                            Toast.LENGTH_SHORT
+                        )
                             .show()
                 } else
                     Toast.makeText(context, R.string.alert_empty_name_telephone, Toast.LENGTH_SHORT)

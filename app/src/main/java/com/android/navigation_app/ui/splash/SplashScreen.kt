@@ -28,6 +28,14 @@ import androidx.compose.ui.unit.sp
 import com.android.navigation.NavigationItem
 import kotlinx.coroutines.delay
 import com.android.navigation_app.R
+import com.android.onboarding.compose.common.DataStorePreferences.ON_BOARDING
+import com.android.onboarding.compose.common.DataStorePreferences.dataStore
+import com.android.onboarding.compose.common.DataStorePreferences.getValueFlow
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 
 @Composable
 fun SplashScreen(navController: NavHostController)  {
@@ -42,13 +50,15 @@ fun SplashScreen(navController: NavHostController)  {
         )
         delay(3000)
 
-        /*if (onBoardingIsFinished(context = context)) {
-            navController.popBackStack()
-            navController.navigate("Home")
-        } else {*/
-        navController.popBackStack()
-        navController.navigate(NavigationItem.WELCOME.route)
-        // }
+        getOnBoardingValue().collect { isBoardingComplete ->
+            if(isBoardingComplete) {
+                navController.popBackStack()
+                navController.navigate(NavigationItem.Home.route)
+            } else {
+                navController.popBackStack()
+                navController.navigate(NavigationItem.WELCOME.route)
+            }
+        }
     }
 
     Column(
@@ -71,4 +81,16 @@ fun SplashScreen(navController: NavHostController)  {
             fontWeight = FontWeight.Bold
         )
     }
+}
+
+private suspend fun getOnBoardingValue(): Flow<Boolean> {
+    return flow {
+        dataStore?.getValueFlow(ON_BOARDING, false)
+            ?.catch {
+                if (it is Exception) {
+                    emit(false)
+                }
+            }
+            ?.collect { onBoardingValue -> emit(onBoardingValue) }
+    }.flowOn(Dispatchers.IO)
 }

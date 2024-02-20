@@ -40,6 +40,7 @@ fun WelcomeScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val context = LocalContext.current
+
         Image(
             imageVector = ImageVector.vectorResource(R.drawable.ic_android),
             contentDescription = ""

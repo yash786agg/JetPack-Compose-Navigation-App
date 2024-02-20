@@ -21,6 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -36,7 +37,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.android.navigation.NavigationItem
 import com.android.onboarding.R
+import com.android.onboarding.compose.common.DataStorePreferences.ON_BOARDING
+import com.android.onboarding.compose.common.DataStorePreferences.dataStore
+import com.android.onboarding.compose.common.DataStorePreferences.setValue
 import com.android.onboarding.compose.common.onBoardingBottomTextButton
+import kotlinx.coroutines.launch
 
 @Composable
 fun ConfirmPinScreen(pin: String, navController: NavController) {
@@ -49,6 +54,7 @@ fun ConfirmPinScreen(pin: String, navController: NavController) {
         Spacer(modifier = Modifier.height(40.dp))
 
         val context = LocalContext.current
+        val coroutineScope = rememberCoroutineScope()
         var confirmPinValue by rememberSaveable { mutableStateOf("") }
         Column(
             modifier = Modifier
@@ -116,6 +122,9 @@ fun ConfirmPinScreen(pin: String, navController: NavController) {
             onNextBtnClick = {
                 if (confirmPinValue.isNotEmpty()) {
                     if (pin == confirmPinValue) {
+                        coroutineScope.launch {
+                            dataStore?.setValue(ON_BOARDING, true)
+                        }
                         navController.navigate(NavigationItem.Home.route)
                     } else
                         Toast.makeText(context, R.string.alert_pins_are_not_same, Toast.LENGTH_SHORT).show()

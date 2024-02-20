@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -43,9 +44,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.android.navigation.NavigationItem
 import com.android.onboarding.R
+import com.android.onboarding.compose.common.DataStorePreferences.EMAIL
+import com.android.onboarding.compose.common.DataStorePreferences.dataStore
+import com.android.onboarding.compose.common.DataStorePreferences.setValue
 import com.android.onboarding.compose.common.Validator.validateEmail
 import com.android.onboarding.compose.common.onBoardingBottomTextButton
 import com.android.onboarding.vm.CredentialsVM
+import kotlinx.coroutines.launch
 
 @Composable
 fun CredentialsScreen(navController: NavHostController, credentialsVM: CredentialsVM) {
@@ -57,6 +62,7 @@ fun CredentialsScreen(navController: NavHostController, credentialsVM: Credentia
             .verticalScroll(rememberScrollState())
     ) {
         val context = LocalContext.current
+        val coroutineScope = rememberCoroutineScope()
         val keyboardFocusManager = LocalFocusManager.current
         val emailTextField = credentialsVM.emailTextFieldState.value
         val passwordTextFieldState = credentialsVM.passwordTextFieldState.value
@@ -188,10 +194,17 @@ fun CredentialsScreen(navController: NavHostController, credentialsVM: Credentia
                 if (credentialsVM.emailTextFieldState.value.isNotEmpty()
                     && credentialsVM.passwordTextFieldState.value.isNotEmpty()
                 ) {
-                    if(isEmailValid) {
+                    if (isEmailValid) {
+                        coroutineScope.launch {
+                            dataStore?.setValue(EMAIL, credentialsVM.emailTextFieldState.value)
+                        }
                         navController.navigate(NavigationItem.PERSONAL_INFO.route)
                     } else {
-                        Toast.makeText(context, R.string.alert_invalid_enter_address_format, Toast.LENGTH_SHORT)
+                        Toast.makeText(
+                            context,
+                            R.string.alert_invalid_enter_address_format,
+                            Toast.LENGTH_SHORT
+                        )
                             .show()
                     }
                 } else
