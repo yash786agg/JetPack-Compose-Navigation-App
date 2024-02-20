@@ -3,13 +3,18 @@ package com.android.navigation_app.ui.navigation
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.android.navigation.NavigationItem
-import com.android.navigation_app.MainActivity
+import com.android.navigation_app.ui.common.Constants.PIN_ARGUMENT
+import com.android.navigation_app.ui.common.Constants.PIN_ARGUMENT_KEY
+import com.android.navigation_app.ui.common.Constants.PIN_DEFAULT_VALUE
 import com.android.navigation_app.ui.splash.SplashScreen
 import com.android.onboarding.compose.ConfirmPinScreen
 import com.android.onboarding.compose.CredentialsScreen
+import com.android.onboarding.compose.HomeScreen
 import com.android.onboarding.compose.NewPinScreen
 import com.android.onboarding.compose.PersonalInfoScreen
 import com.android.onboarding.compose.TermsOfServiceScreen
@@ -37,25 +42,38 @@ fun AppNavHost(
 
         composable(NavigationItem.TERMS_OF_SERVICE.route) {
             val termsOfServiceVM = viewModel<TermsOfServiceVM>()
-            TermsOfServiceScreen(navController = navController,termsOfServiceVM = termsOfServiceVM)
+            TermsOfServiceScreen(navController = navController, termsOfServiceVM = termsOfServiceVM)
         }
 
         composable(NavigationItem.CREDENTIALS.route) {
             val credentialsVM = viewModel<CredentialsVM>()
-            CredentialsScreen(navController = navController,credentialsVM = credentialsVM)
+            CredentialsScreen(navController = navController, credentialsVM = credentialsVM)
         }
 
         composable(NavigationItem.PERSONAL_INFO.route) {
             val personalInfoVM = viewModel<PersonalInfoVM>()
-            PersonalInfoScreen(navController = navController,personalInfoVM = personalInfoVM)
+            PersonalInfoScreen(navController = navController, personalInfoVM = personalInfoVM)
         }
 
         composable(NavigationItem.NEW_PIN.route) {
             NewPinScreen(navController = navController)
         }
 
-        composable(NavigationItem.CONFIRM_PIN.route) {
-            ConfirmPinScreen(navController = navController)
+        composable(NavigationItem.CONFIRM_PIN.route + PIN_ARGUMENT_KEY, arguments = listOf(
+            navArgument(PIN_ARGUMENT) {
+                type = NavType.StringType
+                defaultValue = PIN_DEFAULT_VALUE
+                nullable = true
+            }
+        )) { navEntry ->
+            navEntry.arguments?.getString(PIN_ARGUMENT)
+                ?.let { pin ->
+                    ConfirmPinScreen(pin = pin, navController = navController)
+                }
+        }
+
+        composable(NavigationItem.Home.route) {
+            HomeScreen(navController = navController)
         }
     }
 }

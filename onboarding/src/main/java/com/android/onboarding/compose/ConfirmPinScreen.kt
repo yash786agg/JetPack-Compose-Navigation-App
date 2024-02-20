@@ -1,5 +1,7 @@
 package com.android.onboarding.compose
 
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -36,7 +39,8 @@ import com.android.onboarding.R
 import com.android.onboarding.compose.common.onBoardingBottomTextButton
 
 @Composable
-fun ConfirmPinScreen(navController: NavController) {
+fun ConfirmPinScreen(pin: String, navController: NavController) {
+    Log.e("NavigationApp", "ConfirmPinScreen pinValue: $pin")
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -44,6 +48,8 @@ fun ConfirmPinScreen(navController: NavController) {
     ) {
         Spacer(modifier = Modifier.height(40.dp))
 
+        val context = LocalContext.current
+        var confirmPinValue by rememberSaveable { mutableStateOf("") }
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -58,7 +64,6 @@ fun ConfirmPinScreen(navController: NavController) {
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            var confirmPinValue by rememberSaveable{ mutableStateOf("") }
             BasicTextField(
                 value = confirmPinValue, onValueChange = { newValue ->
                     if (newValue.length <= 4) {
@@ -109,7 +114,13 @@ fun ConfirmPinScreen(navController: NavController) {
                 navController.popBackStack()
             },
             onNextBtnClick = {
-               // navController.navigate(NavigationItem.CONFIRM_PIN.route)
+                if (confirmPinValue.isNotEmpty()) {
+                    if (pin == confirmPinValue) {
+                        navController.navigate(NavigationItem.Home.route)
+                    } else
+                        Toast.makeText(context, R.string.alert_pins_are_not_same, Toast.LENGTH_SHORT).show()
+                } else
+                    Toast.makeText(context, R.string.alert_empty_pin, Toast.LENGTH_SHORT).show()
             }
         )
 

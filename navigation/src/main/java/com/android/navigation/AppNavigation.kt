@@ -1,5 +1,6 @@
 package com.android.navigation
 
+
 enum class Screen {
     SPLASH,
     WELCOME,
@@ -19,5 +20,14 @@ sealed class NavigationItem(val route: String) {
     object NEW_PIN: NavigationItem(Screen.NEW_PIN.name)
     object CONFIRM_PIN: NavigationItem(Screen.CONFIRM_PIN.name)
     object Home: NavigationItem(Screen.HOME.name)
+
+    fun moveToConfirmPinWithArgs(vararg args: String): String {
+        return buildString {
+            append(route)
+            args.forEach { arg->
+                append("/$arg")
+            }
+        }
+    }
 }
 

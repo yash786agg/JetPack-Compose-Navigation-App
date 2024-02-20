@@ -1,5 +1,7 @@
 package com.android.onboarding.compose
 
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -44,6 +47,8 @@ fun NewPinScreen(navController: NavController) {
     ) {
         Spacer(modifier = Modifier.height(40.dp))
 
+        val context = LocalContext.current
+        var pinValue by rememberSaveable { mutableStateOf("") }
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -58,7 +63,6 @@ fun NewPinScreen(navController: NavController) {
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            var pinValue by rememberSaveable{ mutableStateOf("") }
             BasicTextField(
                 value = pinValue, onValueChange = { newValue ->
                     if (newValue.length <= 4) {
@@ -81,10 +85,8 @@ fun NewPinScreen(navController: NavController) {
                                     .width(40.dp)
                                     .height(45.dp)
                                     .border(
-                                        if (isFocused) 2.dp
-                                        else 1.dp,
-                                        if (isFocused) Color.Black
-                                        else Color.DarkGray,
+                                        if (isFocused) 2.dp else 1.dp,
+                                        if (isFocused) Color.Black else Color.DarkGray,
                                         RoundedCornerShape(8.dp)
                                     )
                                     .padding(2.dp),
@@ -109,7 +111,19 @@ fun NewPinScreen(navController: NavController) {
                 navController.popBackStack()
             },
             onNextBtnClick = {
-                navController.navigate(NavigationItem.CONFIRM_PIN.route)
+                Log.e("NavigationApp", "pinValue: $pinValue")
+                if (pinValue.isNotEmpty())
+                    if (pinValue.length == 4)
+                        navController.navigate(
+                            NavigationItem.CONFIRM_PIN.moveToConfirmPinWithArgs(
+                                pinValue
+                            )
+                        )
+                    else
+                        Toast.makeText(context, R.string.alert_invalid_pin, Toast.LENGTH_SHORT)
+                            .show()
+                else
+                    Toast.makeText(context, R.string.alert_empty_pin, Toast.LENGTH_SHORT).show()
             }
         )
 
