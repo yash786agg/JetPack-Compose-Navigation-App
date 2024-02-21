@@ -9,7 +9,8 @@ enum class Screen {
     CREDENTIALS,
     PERSONAL_INFO,
     NEW_PIN,
-    CONFIRM_PIN
+    CONFIRM_PIN,
+    APP_LOCK
 }
 sealed class NavigationItem(val route: String) {
     object SPLASH: NavigationItem(Screen.SPLASH.name)
@@ -20,6 +21,8 @@ sealed class NavigationItem(val route: String) {
     object NEW_PIN: NavigationItem(Screen.NEW_PIN.name)
     object CONFIRM_PIN: NavigationItem(Screen.CONFIRM_PIN.name)
     object Home: NavigationItem(Screen.HOME.name)
+
+    object APP_LOCK: NavigationItem(Screen.APP_LOCK.name)
 
     fun moveToConfirmPinWithArgs(vararg args: String): String {
         return buildString {

@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -32,6 +33,7 @@ import com.android.onboarding.R
 import com.android.onboarding.compose.common.DataStorePreferences.EMAIL
 import com.android.onboarding.compose.common.DataStorePreferences.NAME
 import com.android.onboarding.compose.common.DataStorePreferences.ON_BOARDING
+import com.android.onboarding.compose.common.DataStorePreferences.PIN
 import com.android.onboarding.compose.common.DataStorePreferences.TELEPHONE
 import com.android.onboarding.compose.common.DataStorePreferences.dataStore
 import com.android.onboarding.compose.common.DataStorePreferences.getValueFlow
@@ -71,7 +73,7 @@ fun HomeScreen(navController: NavController) {
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
-            text = "Hi $name"
+            text = "${stringResource(id = R.string.text_hi)} $name"
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -81,7 +83,7 @@ fun HomeScreen(navController: NavController) {
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
-            text = "Email: $email"
+            text = "${stringResource(id = R.string.text_email)} $email"
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -91,7 +93,7 @@ fun HomeScreen(navController: NavController) {
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
-            text = "Telephone: $telephone"
+            text = "${stringResource(id = R.string.text_telephone)} $telephone"
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -99,10 +101,11 @@ fun HomeScreen(navController: NavController) {
         Button(onClick = {
             coroutineScope.launch {
                 dataStore?.setValue(ON_BOARDING, false)
+                dataStore?.setValue(PIN, "")
             }
             navController.navigate(NavigationItem.WELCOME.route)
         }) {
-            Text(text = "Sign Out", fontSize = 19.sp, textAlign = TextAlign.Center)
+            Text(text = stringResource(id = R.string.text_sign_out), fontSize = 19.sp, textAlign = TextAlign.Center)
         }
     }
 }

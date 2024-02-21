@@ -12,6 +12,7 @@ import com.android.navigation_app.ui.common.Constants.PIN_ARGUMENT
 import com.android.navigation_app.ui.common.Constants.PIN_ARGUMENT_KEY
 import com.android.navigation_app.ui.common.Constants.PIN_DEFAULT_VALUE
 import com.android.navigation_app.ui.splash.SplashScreen
+import com.android.onboarding.compose.AppLockScreen
 import com.android.onboarding.compose.ConfirmPinScreen
 import com.android.onboarding.compose.CredentialsScreen
 import com.android.onboarding.compose.HomeScreen
@@ -74,6 +75,10 @@ fun AppNavHost(
 
         composable(NavigationItem.Home.route) {
             HomeScreen(navController = navController)
+        }
+
+        composable(NavigationItem.APP_LOCK.route) {
+            AppLockScreen(navController = navController)
         }
     }
 }

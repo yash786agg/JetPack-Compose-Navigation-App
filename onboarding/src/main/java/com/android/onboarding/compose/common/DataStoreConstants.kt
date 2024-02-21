@@ -11,4 +11,6 @@ object DataStoreConstants {
     const val DATASTORE_EMAIL_KEY: String = "email"
 
     const val DATASTORE_TELEPHONE_KEY: String = "telephone"
+
+    const val DATASTORE_PIN_KEY: String = "pin"
 }

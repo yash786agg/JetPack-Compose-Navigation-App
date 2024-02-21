@@ -1,22 +1,14 @@
 package com.android.onboarding.compose
 
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -26,26 +18,24 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.android.navigation.NavigationItem
 import com.android.onboarding.R
 import com.android.onboarding.compose.common.DataStorePreferences.ON_BOARDING
+import com.android.onboarding.compose.common.DataStorePreferences.PIN
 import com.android.onboarding.compose.common.DataStorePreferences.dataStore
 import com.android.onboarding.compose.common.DataStorePreferences.setValue
+import com.android.onboarding.compose.common.PinInput
 import com.android.onboarding.compose.common.onBoardingBottomTextButton
 import kotlinx.coroutines.launch
 
 @Composable
 fun ConfirmPinScreen(pin: String, navController: NavController) {
-    Log.e("NavigationApp", "ConfirmPinScreen pinValue: $pin")
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -64,51 +54,15 @@ fun ConfirmPinScreen(pin: String, navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = stringResource(id = R.string.text_create_new_pin),
+                text = stringResource(id = R.string.text_confirm_pin),
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            BasicTextField(
-                value = confirmPinValue, onValueChange = { newValue ->
-                    if (newValue.length <= 4) {
-                        confirmPinValue = newValue
-                    }
-                },
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.NumberPassword
-                ), decorationBox = {
-                    Row(horizontalArrangement = Arrangement.Center) {
-                        repeat(4) { index ->
-                            val pinText = when {
-                                index >= confirmPinValue.length -> ""
-                                else -> confirmPinValue[index].toString()
-                            }
-
-                            val isFocused = confirmPinValue.length == index
-                            Text(
-                                modifier = Modifier
-                                    .width(40.dp)
-                                    .height(45.dp)
-                                    .border(
-                                        if (isFocused) 2.dp
-                                        else 1.dp,
-                                        if (isFocused) Color.Black
-                                        else Color.DarkGray,
-                                        RoundedCornerShape(8.dp)
-                                    )
-                                    .padding(2.dp),
-                                text = pinText,
-                                style = MaterialTheme.typography.headlineLarge,
-                                color = Color.Black,
-                                textAlign = TextAlign.Center
-                            )
-                            Spacer(modifier = Modifier.width(8.dp))
-                        }
-                    }
-                }
-            )
+            PinInput(pinValue = confirmPinValue, onPinValueChanged = { newValue ->
+                confirmPinValue = newValue
+            })
         }
 
         // Spacer to push the next element (onBoardingBottomTextButton) to the bottom
@@ -124,6 +78,7 @@ fun ConfirmPinScreen(pin: String, navController: NavController) {
                     if (pin == confirmPinValue) {
                         coroutineScope.launch {
                             dataStore?.setValue(ON_BOARDING, true)
+                            dataStore?.setValue(PIN,confirmPinValue)
                         }
                         navController.navigate(NavigationItem.Home.route)
                     } else

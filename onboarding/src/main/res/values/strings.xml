@@ -20,7 +20,14 @@
     <string name="alert_invalid_enter_address_format">InValid Email Address Format</string>
     <string name="alert_invalid_telephone_format">InValid Telephone For Example:- +1234567</string>
     <string name="text_create_new_pin">Create New PIN</string>
+    <string name="text_confirm_pin">Confirm PIN</string>
     <string name="alert_invalid_pin">InValid Pin</string>
     <string name="alert_empty_pin">Pin can\'t be empty</string>
     <string name="alert_pins_are_not_same">Pin and Confirm Pin are not identical</string>
+    <string name="text_sign_out">Sign Out</string>
+    <string name="text_telephone">Telephone: </string>
+    <string name="text_email">Email: </string>
+    <string name="text_hi">Hi </string>
+    <string name="text_unlock">Unlock</string>
+    <string name="text_unlock_title">Enter Pin to Unlock</string>
 </resources>

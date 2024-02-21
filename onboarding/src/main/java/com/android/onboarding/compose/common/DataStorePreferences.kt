@@ -12,6 +12,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.android.onboarding.compose.common.DataStoreConstants.DATASTORE_EMAIL_KEY
 import com.android.onboarding.compose.common.DataStoreConstants.DATASTORE_NAME_KEY
 import com.android.onboarding.compose.common.DataStoreConstants.DATASTORE_ON_BOARDING_KEY
+import com.android.onboarding.compose.common.DataStoreConstants.DATASTORE_PIN_KEY
 import com.android.onboarding.compose.common.DataStoreConstants.DATASTORE_TELEPHONE_KEY
 import com.android.onboarding.compose.common.DataStoreConstants.DATA_STORE_PREFERENCES_KEY
 import kotlinx.coroutines.flow.Flow
@@ -37,6 +38,8 @@ object DataStorePreferences {
     val EMAIL = stringPreferencesKey(DATASTORE_EMAIL_KEY)
 
     val TELEPHONE = stringPreferencesKey(DATASTORE_TELEPHONE_KEY)
+
+    val PIN = stringPreferencesKey(DATASTORE_PIN_KEY)
 
     fun <T> DataStore<Preferences>.getValueFlow(
         key: Preferences.Key<T>,
