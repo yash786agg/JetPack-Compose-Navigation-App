@@ -14,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -57,7 +58,7 @@ fun PinInput(pinValue: String, onPinValueChanged: (String) -> Unit) {
                 },
                 modifier = Modifier
                     .width(50.dp)
-                    .height(55.dp)
+                    .height(55.dp).testTag("PinInputTextField${index}")
                     .focusRequester(focusRequesters[index]), // Use the corresponding FocusRequester
                 textStyle = LocalTextStyle.current.copy(fontSize = 20.sp), // Adjust text size here
                 keyboardOptions = KeyboardOptions.Default.copy(

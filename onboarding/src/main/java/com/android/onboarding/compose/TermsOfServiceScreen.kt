@@ -28,23 +28,20 @@ import com.android.onboarding.vm.TermsOfServiceVM
 
 @Composable
 fun TermsOfServiceScreen(navController: NavHostController, termsOfServiceVM: TermsOfServiceVM) {
-    // Retrieve the current state of the checkbox from the ViewModel
     val checkedState = termsOfServiceVM.checkedState.value
-    // Retrieve the current context
     val context = LocalContext.current
 
     // Column layout to arrange child composable vertically
     Column(
         modifier = Modifier
-            .fillMaxSize() // Occupy the entire available space
-            .padding(30.dp) // Apply padding around the column content
+            .fillMaxSize()
+            .padding(30.dp)
     ) {
         // Title text for the terms of service screen
         Text(
             text = stringResource(id = R.string.text_terms_of_service),
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
-            // Determine text color based on system theme
             color = if (isSystemInDarkTheme()) Color.White else Color.Black,
             modifier = Modifier.padding(bottom = 16.dp) // Apply bottom padding to the title
         )
@@ -53,7 +50,6 @@ fun TermsOfServiceScreen(navController: NavHostController, termsOfServiceVM: Ter
         Text(
             text = stringResource(id = R.string.text_terms_of_service_description),
             fontSize = 16.sp,
-            // Determine text color based on system theme
             color = if (isSystemInDarkTheme()) Color.White else Color.Black
         )
 
@@ -62,19 +58,18 @@ fun TermsOfServiceScreen(navController: NavHostController, termsOfServiceVM: Ter
 
         // Row layout to arrange child composables horizontally
         Row(
-            verticalAlignment = Alignment.CenterVertically // Align children vertically in the center
+            verticalAlignment = Alignment.CenterVertically
         ) {
             // Checkbox for agreeing to terms and conditions
             Checkbox(
-                checked = checkedState, // Set the checked state of the checkbox
-                onCheckedChange = { isChecked -> termsOfServiceVM.onCheckedStateChange(checkedState = isChecked) }, // Handle checkbox state change
-                modifier = Modifier.padding(end = 8.dp) // Apply end padding to the checkbox
+                checked = checkedState,
+                onCheckedChange = { isChecked -> termsOfServiceVM.onCheckedStateChange(checkedState = isChecked) },
+                modifier = Modifier.padding(end = 8.dp)
             )
             // Text label for the checkbox
             Text(
                 text = stringResource(id = R.string.text_agree_to_terms_and_condition),
                 fontSize = 14.sp,
-                // Determine text color based on system theme
                 color = if (isSystemInDarkTheme()) Color.White else Color.Black
             )
         }
