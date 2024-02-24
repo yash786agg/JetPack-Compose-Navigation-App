@@ -19,7 +19,7 @@ class WelcomeScreenTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun myWelcomeScreenComposeTest() {
+    fun welcomeScreenComposeTest() {
         composeTestRule.setContent {
             WelcomeScreen(navController = NavHostController(LocalContext.current))
         }

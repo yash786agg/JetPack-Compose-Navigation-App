@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -48,6 +49,7 @@ fun TermsOfServiceScreen(navController: NavHostController, termsOfServiceVM: Ter
 
         // Description text for the terms of service
         Text(
+            modifier = Modifier.testTag(stringResource(id = R.string.test_tag_description_terms_of_service)),
             text = stringResource(id = R.string.text_terms_of_service_description),
             fontSize = 16.sp,
             color = if (isSystemInDarkTheme()) Color.White else Color.Black
@@ -64,7 +66,9 @@ fun TermsOfServiceScreen(navController: NavHostController, termsOfServiceVM: Ter
             Checkbox(
                 checked = checkedState,
                 onCheckedChange = { isChecked -> termsOfServiceVM.onCheckedStateChange(checkedState = isChecked) },
-                modifier = Modifier.padding(end = 8.dp)
+                modifier = Modifier
+                    .padding(end = 8.dp)
+                    .testTag(stringResource(id = R.string.test_tag_checkbox_terms_of_service))
             )
             // Text label for the checkbox
             Text(

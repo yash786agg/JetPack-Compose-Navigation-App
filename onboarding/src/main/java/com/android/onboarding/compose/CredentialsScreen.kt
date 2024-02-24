@@ -34,8 +34,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -101,6 +104,7 @@ fun CredentialsScreen(navController: NavHostController, credentialsVM: Credentia
                     ),
                     modifier = Modifier
                         .fillMaxWidth()
+                        .testTag(stringResource(id = R.string.test_tag_email_text_field))
                         .onFocusChanged { focus ->
                             emailFocusState = focus.isFocused
                         },
@@ -154,6 +158,7 @@ fun CredentialsScreen(navController: NavHostController, credentialsVM: Credentia
                     singleLine = true,
                     modifier = Modifier
                         .fillMaxWidth()
+                        .testTag(stringResource(id = R.string.test_tag_password_text_field))
                         .onFocusChanged { focus ->
                             passwordFocusState = focus.isFocused
                         },
@@ -168,7 +173,9 @@ fun CredentialsScreen(navController: NavHostController, credentialsVM: Credentia
                                 id = R.string.text_show_password
                             )
 
-                        IconButton(onClick = {
+                        IconButton(modifier = Modifier.semantics {
+                            contentDescription = "passwordIconButton"
+                        }, onClick = {
                             passwordVisible = !passwordVisible
                         }) {
                             Icon(
