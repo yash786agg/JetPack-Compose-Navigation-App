@@ -49,11 +49,11 @@ class HomeScreenTest {
 
     private val testContext: Context = InstrumentationRegistry.getInstrumentation().targetContext
 
-    val TEST_NAME_KEY = stringPreferencesKey(DATASTORE_NAME_TEST_KEY)
+    private val TEST_NAME_KEY = stringPreferencesKey(DATASTORE_NAME_TEST_KEY)
 
-    val TEST_EMAIL_KEY = stringPreferencesKey(DATASTORE_EMAIL_TEST_KEY)
+    private val TEST_EMAIL_KEY = stringPreferencesKey(DATASTORE_EMAIL_TEST_KEY)
 
-    val TEST_TELEPHONE_KEY = stringPreferencesKey(DATASTORE_TELEPHONE_TEST_KEY)
+    private val TEST_TELEPHONE_KEY = stringPreferencesKey(DATASTORE_TELEPHONE_TEST_KEY)
 
     @Before
     fun setUp() {
