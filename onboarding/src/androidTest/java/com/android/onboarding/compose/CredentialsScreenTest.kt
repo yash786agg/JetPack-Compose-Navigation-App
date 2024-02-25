@@ -3,7 +3,6 @@ package com.android.onboarding.compose
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertTextContains
-import androidx.compose.ui.test.assertValueEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
@@ -67,7 +66,7 @@ class CredentialsScreenTest {
     }
 
     @Test
-    fun nextButtonText() {
+    fun nextButtonTest() {
         composeTestRule.onNodeWithText("Next").assertHasClickAction()
     }
 }

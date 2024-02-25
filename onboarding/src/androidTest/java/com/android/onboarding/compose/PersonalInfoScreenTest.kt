@@ -17,6 +17,8 @@ import com.android.onboarding.compose.common.TestConstants.LAST_NAME_INPUT
 import com.android.onboarding.compose.common.TestConstants.TELEPHONE_TEST_INPUT
 import com.android.onboarding.compose.common.Validator.validateTelephoneNumber
 import com.android.onboarding.vm.PersonalInfoVM
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -73,7 +75,7 @@ class PersonalInfoScreenTest {
         lastNameTextField.performTextClearance()
         lastNameTextField.performTextInput(INVALID_TELEPHONE_TEST_INPUT)
 
-        Thread.sleep(1000)
+        runBlocking { delay(1000) }
 
         val telephoneNumberSupportingTextField = composeTestRule.onNodeWithContentDescription("telephoneNumberSupportingText")
         telephoneNumberSupportingTextField.assertExists("InValid Telephone For Example:- +1234567")
@@ -81,7 +83,7 @@ class PersonalInfoScreenTest {
     }
 
     @Test
-    fun nextButtonText() {
+    fun nextButtonTest() {
         composeTestRule.onNodeWithText("Next").assertHasClickAction()
     }
 }

@@ -40,4 +40,7 @@
     <string name="test_tag_firstname_text_field">firstNameTextField</string>
     <string name="test_tag_lastname_text_field">lastNameTextField</string>
     <string name="test_tag_telephoneNumber_text_field">telephoneNumberTextField</string>
+    <string name="test_tag_name">name</string>
+    <string name="test_tag_email">email</string>
+    <string name="test_tag_telephoneNumber">telephoneNumber</string>
 </resources>
