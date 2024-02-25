@@ -30,7 +30,9 @@ for future development.
 
 To run Android tests in a directory, right-click on the onboarding androidTest directory and select Run tests
 
-![Automated tests](screenshots/android_test.png)
+<div style="text-align:center">
+  <img src="screenshots/android_test.png" alt="Automated tests" style="width:50%">
+</div>
 
 ## Running and Building the application
 
