@@ -8,6 +8,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.navigation.NavHostController
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -18,12 +19,14 @@ class WelcomeScreenTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    @Test
-    fun welcomeScreenComposeTest() {
+    @Before
+    fun setUp() {
         composeTestRule.setContent {
             WelcomeScreen(navController = NavHostController(LocalContext.current))
         }
-
+    }
+    @Test
+    fun welcomeScreenComposeTest() {
         // Finding and controlling the UI component
         val welcomeText = composeTestRule.onNodeWithText("Welcome")
         assertTrue(welcomeText.isDisplayed())

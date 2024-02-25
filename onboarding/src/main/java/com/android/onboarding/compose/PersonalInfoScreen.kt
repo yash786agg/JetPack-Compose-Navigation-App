@@ -32,7 +32,10 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
@@ -96,6 +99,7 @@ fun PersonalInfoScreen(navController: NavHostController, personalInfoVM: Persona
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
+                    .testTag(stringResource(id = R.string.test_tag_firstname_text_field))
                     .onFocusChanged { focus ->
                         firstNameFocusState = focus.isFocused
                     },
@@ -128,6 +132,7 @@ fun PersonalInfoScreen(navController: NavHostController, personalInfoVM: Persona
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
+                    .testTag(stringResource(id = R.string.test_tag_lastname_text_field))
                     .onFocusChanged { focus ->
                         lastNameFocusState = focus.isFocused
                     },
@@ -161,6 +166,7 @@ fun PersonalInfoScreen(navController: NavHostController, personalInfoVM: Persona
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
+                    .testTag(stringResource(id = R.string.test_tag_telephoneNumber_text_field))
                     .onFocusChanged { focus ->
                         telephoneNumberFocusState = focus.isFocused
                     },
@@ -174,8 +180,11 @@ fun PersonalInfoScreen(navController: NavHostController, personalInfoVM: Persona
                 supportingText = {
                     if (!isTelephoneNumberValid) {
                         Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = stringResource(id = R.string.alert_invalid_telephone_format),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .semantics {
+                                    contentDescription = "telephoneNumberSupportingText"
+                                }, text = stringResource(id = R.string.alert_invalid_telephone_format),
                             color = MaterialTheme.colorScheme.error
                         )
                     }

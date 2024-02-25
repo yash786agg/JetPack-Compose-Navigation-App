@@ -37,5 +37,7 @@
     <string name="test_tag_checkbox_terms_of_service">Checkbox</string>
     <string name="test_tag_email_text_field">emailTextField</string>
     <string name="test_tag_password_text_field">passwordTextField</string>
-
+    <string name="test_tag_firstname_text_field">firstNameTextField</string>
+    <string name="test_tag_lastname_text_field">lastNameTextField</string>
+    <string name="test_tag_telephoneNumber_text_field">telephoneNumberTextField</string>
 </resources>
