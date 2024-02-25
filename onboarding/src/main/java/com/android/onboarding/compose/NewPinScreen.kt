@@ -26,7 +26,7 @@ import androidx.navigation.NavController
 import com.android.navigation.NavigationItem
 import com.android.onboarding.R
 import com.android.onboarding.compose.common.PinInput
-import com.android.onboarding.compose.common.onBoardingBottomTextButton
+import com.android.onboarding.compose.common.OnBoardingBottomTextButton
 
 @Composable
 fun NewPinScreen(navController: NavController) {
@@ -62,7 +62,7 @@ fun NewPinScreen(navController: NavController) {
         Spacer(modifier = Modifier.weight(1f))
 
         // Bottom button
-        onBoardingBottomTextButton(onBackBtnClick = {
+        OnBoardingBottomTextButton(onBackBtnClick = {
             navController.popBackStack()
         }, onNextBtnClick = {
             if (pinValue.isNotEmpty()) if (pinValue.length == 4) navController.navigate(

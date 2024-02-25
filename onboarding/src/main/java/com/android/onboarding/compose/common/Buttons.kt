@@ -46,7 +46,7 @@ fun OutlinedTextButton(buttonText: String, onBtnClick: () -> Unit) {
 }
 
 @Composable
-fun onBoardingBottomTextButton(onBackBtnClick: () -> Unit, onNextBtnClick: () -> Unit) {
+fun OnBoardingBottomTextButton(onBackBtnClick: () -> Unit, onNextBtnClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()

@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.android.navigation.NavigationItem
 import com.android.onboarding.R
-import com.android.onboarding.compose.common.onBoardingBottomTextButton
+import com.android.onboarding.compose.common.OnBoardingBottomTextButton
 import com.android.onboarding.vm.TermsOfServiceVM
 
 @Composable
@@ -82,7 +82,7 @@ fun TermsOfServiceScreen(navController: NavHostController, termsOfServiceVM: Ter
         Spacer(modifier = Modifier.weight(1f))
 
         // Bottom button for navigation
-        onBoardingBottomTextButton(onBackBtnClick = {
+        OnBoardingBottomTextButton(onBackBtnClick = {
             // Navigate back when back button is clicked
             navController.popBackStack()
         }, onNextBtnClick = {

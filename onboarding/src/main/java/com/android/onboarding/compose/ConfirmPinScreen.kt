@@ -31,7 +31,7 @@ import com.android.onboarding.compose.common.DataStorePreferences.PIN
 import com.android.onboarding.compose.common.DataStorePreferences.dataStore
 import com.android.onboarding.compose.common.DataStorePreferences.setValue
 import com.android.onboarding.compose.common.PinInput
-import com.android.onboarding.compose.common.onBoardingBottomTextButton
+import com.android.onboarding.compose.common.OnBoardingBottomTextButton
 import kotlinx.coroutines.launch
 
 @Composable
@@ -69,7 +69,7 @@ fun ConfirmPinScreen(pin: String, navController: NavController) {
         Spacer(modifier = Modifier.weight(1f))
 
         // Bottom button
-        onBoardingBottomTextButton(
+        OnBoardingBottomTextButton(
             onBackBtnClick = {
                 navController.popBackStack()
             },

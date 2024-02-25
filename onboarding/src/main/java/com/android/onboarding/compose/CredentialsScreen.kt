@@ -51,7 +51,7 @@ import com.android.onboarding.compose.common.DataStorePreferences.EMAIL
 import com.android.onboarding.compose.common.DataStorePreferences.dataStore
 import com.android.onboarding.compose.common.DataStorePreferences.setValue
 import com.android.onboarding.compose.common.Validator.validateEmail
-import com.android.onboarding.compose.common.onBoardingBottomTextButton
+import com.android.onboarding.compose.common.OnBoardingBottomTextButton
 import com.android.onboarding.vm.CredentialsVM
 import kotlinx.coroutines.launch
 
@@ -193,7 +193,7 @@ fun CredentialsScreen(navController: NavHostController, credentialsVM: Credentia
         Spacer(modifier = Modifier.weight(1f))
 
         // Bottom button
-        onBoardingBottomTextButton(
+        OnBoardingBottomTextButton(
             onBackBtnClick = {
                 navController.popBackStack()
             },

@@ -48,7 +48,7 @@ import com.android.onboarding.compose.common.DataStorePreferences.TELEPHONE
 import com.android.onboarding.compose.common.DataStorePreferences.dataStore
 import com.android.onboarding.compose.common.DataStorePreferences.setValue
 import com.android.onboarding.compose.common.Validator.validateTelephoneNumber
-import com.android.onboarding.compose.common.onBoardingBottomTextButton
+import com.android.onboarding.compose.common.OnBoardingBottomTextButton
 import com.android.onboarding.vm.PersonalInfoVM
 import kotlinx.coroutines.launch
 
@@ -199,7 +199,7 @@ fun PersonalInfoScreen(navController: NavHostController, personalInfoVM: Persona
         Spacer(modifier = Modifier.weight(1f))
 
         // Bottom button
-        onBoardingBottomTextButton(
+        OnBoardingBottomTextButton(
             onBackBtnClick = {
                 navController.popBackStack()
             },
