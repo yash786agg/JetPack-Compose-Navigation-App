@@ -9,7 +9,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
-import androidx.navigation.NavHostController
+import androidx.navigation.testing.TestNavHostController
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.android.onboarding.compose.common.TestConstants.EMAIL_TEST_INPUT
 import com.android.onboarding.compose.common.TestConstants.INVALID_EMAIL_TEST_INPUT
@@ -33,7 +33,7 @@ class CredentialsScreenTest {
     fun setUp() {
         composeTestRule.setContent {
             CredentialsScreen(
-                navController = NavHostController(LocalContext.current),
+                navController = TestNavHostController(LocalContext.current),
                 credentialsVM = credentialsVM
             )
         }

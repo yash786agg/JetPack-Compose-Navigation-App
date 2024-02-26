@@ -5,7 +5,7 @@ import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
-import androidx.navigation.NavHostController
+import androidx.navigation.testing.TestNavHostController
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -22,7 +22,7 @@ class WelcomeScreenTest {
     @Before
     fun setUp() {
         composeTestRule.setContent {
-            WelcomeScreen(navController = NavHostController(LocalContext.current))
+            WelcomeScreen(navController = TestNavHostController(LocalContext.current))
         }
     }
     @Test

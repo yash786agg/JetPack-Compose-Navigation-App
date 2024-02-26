@@ -13,7 +13,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStoreFile
-import androidx.navigation.NavHostController
+import androidx.navigation.testing.TestNavHostController
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.onboarding.compose.common.DataStorePreferences.getValueFlow
@@ -58,7 +58,7 @@ class HomeScreenTest {
     @Before
     fun setUp() {
         composeTestRule.setContent {
-            HomeScreen(navController = NavHostController(LocalContext.current))
+            HomeScreen(navController = TestNavHostController(LocalContext.current))
         }
     }
 

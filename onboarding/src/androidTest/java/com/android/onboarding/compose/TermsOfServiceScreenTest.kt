@@ -9,7 +9,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.navigation.NavHostController
+import androidx.navigation.testing.TestNavHostController
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.android.onboarding.vm.TermsOfServiceVM
 import org.junit.Assert.*
@@ -33,7 +33,7 @@ class TermsOfServiceScreenTest {
         composeTestRule.setContent {
             context = LocalContext.current
             TermsOfServiceScreen(
-                navController = NavHostController(LocalContext.current),
+                navController = TestNavHostController(LocalContext.current),
                 termsOfServiceVM = termsOfServiceVM
             )
         }

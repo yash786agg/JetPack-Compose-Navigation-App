@@ -9,7 +9,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performTextClearance
 import androidx.compose.ui.test.performTextInput
-import androidx.navigation.NavHostController
+import androidx.navigation.testing.TestNavHostController
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.android.onboarding.compose.common.TestConstants.FIRST_NAME_INPUT
 import com.android.onboarding.compose.common.TestConstants.INVALID_TELEPHONE_TEST_INPUT
@@ -39,7 +39,7 @@ class PersonalInfoScreenTest {
     fun setUp() {
         composeTestRule.setContent {
             PersonalInfoScreen(
-                navController = NavHostController(LocalContext.current),
+                navController = TestNavHostController(LocalContext.current),
                 personalInfoVM = personalInfoVM
             )
         }
