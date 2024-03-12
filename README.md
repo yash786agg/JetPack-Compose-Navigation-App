@@ -1,4 +1,4 @@
-<h1 align="center">Navigation App</h1>
+<h1 align="center">JetPack Compose Navigation App</h1>
 
 <p align="center">  
 This application is designed to use the latest Android Jetpack compose Navigation Controller component.
